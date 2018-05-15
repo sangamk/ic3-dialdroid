@@ -376,6 +376,7 @@ public class SetupApplication {
   public void initializeSoot() {
     soot.G.reset();
 
+    Options.v().set_process_multiple_dex(true);
     Options.v().set_ignore_resolution_errors(true);
     Options.v().set_debug(false);
     Options.v().set_verbose(false);
@@ -397,7 +398,8 @@ public class SetupApplication {
     }
     
         
-    Options.v().set_force_android_jar("ic3-android.jar");
+//    Options.v().set_force_android_jar("ic3-android.jar");
+    Options.v().set_android_jars("C:\\Users\\Sangam Gupta\\AppData\\Local\\Android\\Sdk\\platforms");
     // Options.v().set_src_prec(Options.src_prec_apk);
 
     Options.v().set_src_prec(Options.src_prec_apk);

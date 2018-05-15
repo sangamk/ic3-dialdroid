@@ -194,6 +194,7 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
     if (commandLineArguments.computeComponents()) {
       addEntryPointMappingSceneTransformer(entryPointClasses, callBackMethods, entryPointMap);
     }
+    Options.v().set_process_multiple_dex(true);
     Options.v().set_ignore_resolution_errors(true);
     Options.v().set_debug(false);
     Options.v().set_verbose(false);
@@ -203,13 +204,12 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
     Options.v().set_allow_phantom_refs(true);
     Options.v().set_output_format(Options.output_format_none);
     Options.v().set_whole_program(true);
-    // Options.v().set_soot_classpath(commandLineArguments.getInput());
 
     Options.v().set_soot_classpath(commandLineArguments.getInput());
 
-    Options.v().set_force_android_jar("ic3-android.jar");
+//    Options.v().set_force_android_jar("ic3-android.jar");
     
-    //soot.options.Options.v().set_android_jars();
+    soot.options.Options.v().set_android_jars("C:\\Users\\Sangam Gupta\\AppData\\Local\\Android\\Sdk\\platforms");
     // System.out.println(commandLineArguments.getClasspath());
     Options.v().set_ignore_resolution_errors(true);
     //Options.v().set_process_dir(frameworkClasses);
@@ -323,8 +323,10 @@ public class Ic3Analysis extends Analysis<Ic3CommandLineArguments> {
   @Override
   protected void finalizeAnalysis(Ic3CommandLineArguments commandLineArguments) {
 	  try {
-		SQLConnection.saveAppCategory(commandLineArguments.getAppCategory(), apkPath);
-		Timers.v().saveTimeToDb();
+	    if (commandLineArguments.getProtobufDestination() == null){
+          SQLConnection.saveAppCategory(commandLineArguments.getAppCategory(), apkPath);
+          Timers.v().saveTimeToDb();
+        }
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		//e.printStackTrace();

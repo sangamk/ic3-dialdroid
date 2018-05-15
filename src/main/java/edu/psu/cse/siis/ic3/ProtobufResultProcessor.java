@@ -18,10 +18,7 @@
  */
 package edu.psu.cse.siis.ic3;
 
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -110,7 +107,11 @@ public class ProtobufResultProcessor {
       ic3Builder.build().writeTo(fileOutputStream);
       fileOutputStream.close();
     } else {
-      FileWriter fileWriter = new FileWriter(path);
+      File file = new File(path);
+      if (!file.exists()){
+          file.getParentFile().mkdirs();
+      }
+      FileWriter fileWriter = new FileWriter(file);
       TextFormat.print(ic3Builder, fileWriter);
       fileWriter.close();
     }
@@ -263,6 +264,10 @@ public class ProtobufResultProcessor {
       BasePropagationValue intentValue, ComponentKind componentKind, Set<String> intentPermissions,
       Integer missingIntents, Set<String> exitPointComponents,
       Map<String, Component.Builder> componentNameToBuilderMap) {
+      if (exitPointComponents == null){
+          logger.error("exitPointComponents is empty for "+ intentValue.toString());
+          return;
+      }
     for (String exitPointComponent : exitPointComponents) {
       ExitPoint.Builder exitPointBuilder = ExitPoint.newBuilder();
       exitPointBuilder.setInstruction(instructionBuilder).setKind(componentKind);
