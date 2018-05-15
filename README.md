@@ -19,3 +19,8 @@ IC3-DIALDroid is an updated version of IC3 (http://siis.cse.psu.edu/ic3/). Howev
 : java [JVM options] -jar [path to IC3 Jar] -input [path to apk] -cp [path to Android platforms] -dbname [database_name]
 
 Use JVM options to allocation more memory: e.g., -Xms4G -Xmx16G, will allocate maximum 16GB memory to JVM. 
+
+## Alternative
+You can also output the result with protobuf to an .txt file. This can than be used by flowdroid, which enables it to build a graph with ICC links.
+
+: java [JVM options] -jar [path to IC3 Jar] -input [path to apk] -cp [path to Android platforms] -protobuf [result directory]
