@@ -369,60 +369,6 @@ public class SetupApplication {
   }
 
   /**
-   * Initializes soot for running the soot-based phases of the application metadata analysis
-   *
-   * @return The entry point used for running soot
-   */
-  public void initializeSoot() {
-    soot.G.reset();
-
-    Options.v().set_process_multiple_dex(true);
-    Options.v().set_ignore_resolution_errors(true);
-    Options.v().set_debug(false);
-    Options.v().set_verbose(false);
-    Options.v().set_unfriendly_mode(true);
-
-    Options.v().set_no_bodies_for_excluded(true);
-    Options.v().set_allow_phantom_refs(true);
-    Options.v().set_output_format(Options.output_format_none);
-    Options.v().set_whole_program(true);
-    Options.v().setPhaseOption("cg.spark", "on");
-    // Options.v().setPhaseOption("cg.spark", "geom-pta:true");
-    // Options.v().setPhaseOption("cg.spark", "geom-encoding:PtIns");
-    Options.v().set_ignore_resolution_errors(true);
-    // Options.v().setPhaseOption("jb", "use-original-names:true");
-    Options.v()
-        .set_soot_classpath(this.apkFileLocation + File.pathSeparator + this.androidClassPath);
-    if (logger.isDebugEnabled()) {
-      logger.debug("Android class path: " + this.androidClassPath);
-    }
-    
-        
-//    Options.v().set_force_android_jar("ic3-android.jar");
-    Options.v().set_android_jars("C:\\Users\\Sangam Gupta\\AppData\\Local\\Android\\Sdk\\platforms");
-    // Options.v().set_src_prec(Options.src_prec_apk);
-
-    Options.v().set_src_prec(Options.src_prec_apk);
-    // soot.options.Options.v().set_process_dir(Collections.singletonList(this.apkFileLocation));
-    // soot.options.Options.v().set_force_android_jar("./android.jar");
-
-    Options.v().set_process_dir(new ArrayList<>(this.entrypoints));
-    // Options.v().set_app(true);
-    Main.v().autoSetOptions();
-
-    Scene.v().loadNecessaryClasses();
-
-    // for (String className : this.entrypoints) {
-    // SootClass c = Scene.v().forceResolve(className, SootClass.BODIES);
-    // c.setApplicationClass();
-    // }
-    //
-    // SootMethod entryPoint = getEntryPointCreator().createDummyMain();
-    // Scene.v().setEntryPoints(Collections.singletonList(entryPoint));
-    // return entryPoint;
-  }
-
-  /**
    * Builds the classpath for this analysis
    *
    * @return The classpath to be used for the taint analysis
