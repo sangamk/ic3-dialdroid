@@ -83,7 +83,6 @@ public class ProtobufResultProcessor {
   private final int[] preciseFieldValueCount = { 0, 0, 0 };
   private final int[] partiallyPreciseFieldValueCount = { 0, 0, 0 };
   private final int[] impreciseFieldValueCount = { 0, 0, 0 };
-  private int intentWithData = 0;
   private int providerArgument = 0;
 
   public void processResult(String appName, Ic3Data.Application.Builder ic3Builder,
@@ -99,7 +98,7 @@ public class ProtobufResultProcessor {
     ic3Builder.setAnalysisEnd(System.currentTimeMillis() / 1000);
 
     String extension = binary ? "dat" : "txt";
-    String path = String.format("%s/%s_%s.%s", protobufDestination, ic3Builder.getName(),
+    String path = String.format("%s/%s/%s_%s.%s", protobufDestination, ic3Builder.getName() ,ic3Builder.getName(),
         ic3Builder.getVersion(), extension);
     System.out.println("PATH: " + path);
     if (binary) {
@@ -627,7 +626,6 @@ public class ProtobufResultProcessor {
       }
 
       if (intentWithUri) {
-        ++this.intentWithData;
       }
 
       if (nonexistent) {
