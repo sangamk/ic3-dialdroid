@@ -39,7 +39,7 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
   private String ssh;
   private String iccStudy;
   private int dbLocalPort = DEFAULT_LOCAL_PORT;
-  private final boolean computeComponents = true;
+  private boolean computeComponents = true;
   private String dbName;
   private String protobufDestination;
   private boolean binary;
@@ -185,8 +185,6 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
       dbName = getOptionValue("dbname", DEFAULT_DB_NAME);
     }
 
-    // computeComponents = hasOption("computecomponents") || db != null;
-
     if (hasOption("category")) {
       appCategory = getOptionValue("category","Default");
     }
@@ -195,9 +193,9 @@ public class Ic3CommandLineArguments extends CommandLineArguments {
         protobufDestination = getOptionValue("protobuf");
       }
 
-    // computeComponents = hasOption("computecomponents") || db != null || protobufDestination !=
-    // null;
-    // binary = hasOption("binary");
+     computeComponents = hasOption("computecomponents") || db != null || protobufDestination !=  null;
+
+     binary = hasOption("binary");
 
     // sample = getOptionValue("sample");
   }
